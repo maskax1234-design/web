@@ -30,13 +30,11 @@
 
 <x-form.select name="payment_method" label="Payment Method" :options="$paymentMethods" :value="$record?->payment_method" :required="true" />
 <x-form.input name="reference" label="Reference" :value="$record?->reference" placeholder="Transaction or cheque number" />
-
-<x-form.select
-    name="received_by"
+<x-form.input
+    name="received_by_name"
     label="Received By"
-    :options="$selectOptions['received_by'] ?? collect()"
-    :value="$record?->received_by ?? auth()->id()"
-    placeholder="Not recorded"
+    :value="auth()->user()?->name ?? 'Not logged in'"
+    readonly
 />
 
 <x-form.textarea name="notes" label="Notes" :value="$record?->notes" :rows="2" />

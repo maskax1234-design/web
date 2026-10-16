@@ -33,10 +33,14 @@
 
 <style>
     .app-sidebar {
-        position: sticky;
-        top: 0;
-        height: 100vh;
-        align-self: flex-start;
-        overflow-y: auto;
-    }
+    position: sticky;
+    top: 0;
+    width: 260px;
+    min-width: 260px;
+    max-width: 260px;
+    height: 100vh;
+    align-self: flex-start;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
 </style>

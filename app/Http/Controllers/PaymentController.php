@@ -108,16 +108,17 @@ class PaymentController extends HospitalResourceController
         }
 
         $payment = DB::transaction(function () use ($validated, $invoice): Payment {
-            $newPayment = Payment::create([
-                'invoice_id' => $validated['invoice_id'],
-                'patient_id' => $invoice->patient_id,
-                'amount' => $validated['amount'],
-                'payment_date' => $validated['payment_date'],
-                'payment_method' => $validated['payment_method'],
-                'reference' => $validated['reference'] ?? null,
-                'received_by' => $validated['received_by'] ?? null,
-                'notes' => $validated['notes'] ?? null,
+          $newPayment = Payment::create([
+            'invoice_id' => $validated['invoice_id'],
+            'patient_id' => $invoice->patient_id,
+            'amount' => $validated['amount'],
+            'payment_date' => $validated['payment_date'],
+            'payment_method' => $validated['payment_method'],
+            'reference' => $validated['reference'] ?? null,
+            'received_by' => auth()->id(),
+            'notes' => $validated['notes'] ?? null,
             ]);
+
 
             $totalPaid = $invoice->payments()->sum('amount');
             $calculation = InvoiceCalculationService::calculate([], 0, 0, $totalPaid);
